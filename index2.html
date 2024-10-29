@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20%;
+        }
+        .timer {
+            font-size: 48px;
+            margin: 20px 0;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Countdown Timer</h1>
+    <input type="number" id="secondsInput" placeholder="Enter seconds" />
+    <button id="startBtn">Start</button>
+    <div class="timer" id="timerDisplay">00:00</div>
+
+    <script>
+        const startBtn = document.getElementById('startBtn');
+        const timerDisplay = document.getElementById('timerDisplay');
+
+        let countdown;
+        startBtn.addEventListener('click', () => {
+            const seconds = parseInt(document.getElementById('secondsInput').value);
+            clearInterval(countdown);
+
+            let timeLeft = seconds;
+            countdown = setInterval(() => {
+                const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+                const seconds = String(timeLeft % 60).padStart(2, '0');
+                timerDisplay.textContent = `${minutes}:${seconds}`;
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    alert('Time’s up!');
+                }
+                timeLeft--;
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
